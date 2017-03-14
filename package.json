@@ -41,13 +41,16 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "nyc": {
+    "check-coverage": true,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "lines": 100
+  },
   "verb": {
     "run": true,
-    "toc": {
-      "render": true,
-      "method": "preWrite",
-      "maxdepth": 3
-    },
+    "toc": true,
     "layout": "empty",
     "tasks": [
       "readme"
@@ -56,19 +59,35 @@
       "list": [
         "always-done",
         "minibase",
-        "try-catch-core"
+        "try-catch-core",
+        "clean-stacktrace",
+        "stacktrace-metadata",
+        "clean-stacktrace-relative-paths",
+        "clean-stacktrace-metadata",
+        "is-async-function",
+        "parse-function",
+        "error-format",
+        "assert-kindof"
       ],
       "highlight": "always-done"
     },
     "lint": {
       "reflinks": true
-    }
-  },
-  "nyc": {
-    "check-coverage": true,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "lines": 100
+    },
+    "reflinks": [
+      "always-done",
+      "async-done",
+      "base",
+      "charlike",
+      "clean-stacktrace",
+      "commitizen",
+      "common-callback-names",
+      "dezalgo",
+      "is-kindof",
+      "once",
+      "standard-version",
+      "verb",
+      "verb-generate-readme"
+    ]
   }
 }
