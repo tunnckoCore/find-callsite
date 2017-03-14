@@ -10,7 +10,7 @@
 [![dependency status][david-img]][david-url]
 [![paypal donate][paypalme-img]][paypalme-url] 
 
-You might also be interested in [always-done](https://github.com/hybridables/always-done#readme).
+You might also be interested in [stacktrace-metadata](https://github.com/tunnckocore/stacktrace-metadata#readme).
 
 ## Table of Contents
 - [Install](#install)
@@ -98,7 +98,7 @@ $ npm install && npm test
 + [codementor/tunnckoCore](https://codementor.io/tunnckoCore)
 
 ## License
-Copyright © 2016-2017, [Charlike Mike Reagent](https://i.am.charlike.online). Released under the [MIT License](LICENSE).
+Copyright © 2017, [Charlike Mike Reagent](https://i.am.charlike.online). Released under the [MIT License](LICENSE).
 
 ***
 

@@ -69,7 +69,7 @@
         "error-format",
         "assert-kindof"
       ],
-      "highlight": "always-done"
+      "highlight": "stacktrace-metadata"
     },
     "lint": {
       "reflinks": true
