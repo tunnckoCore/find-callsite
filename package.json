@@ -35,7 +35,21 @@
   "files": [
     "index.js"
   ],
-  "keywords": [],
+  "keywords": [
+    "callsite",
+    "callsites",
+    "err",
+    "error",
+    "error-stack-trace",
+    "find",
+    "find-callsite",
+    "metadata",
+    "stack",
+    "stack-trace",
+    "stacktrace",
+    "stacktraces",
+    "trace"
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
