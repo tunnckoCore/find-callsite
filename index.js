@@ -7,6 +7,39 @@
 
 'use strict'
 
+/**
+ * > Find correct callsite where error is started. All that stuff
+ * is because you not always need the first line of the stack
+ * to understand where and what happened.
+ *
+ * In below example we use `rimraf.sync` to throw some error. That's
+ * the case when we need to be informed where is the `rimraf.sync` call
+ * not where it throws. In that case it is on line 6, column 12.
+ *
+ * **Example**
+ *
+ * ```js
+ * var findCallsite = require('find-callsite')
+ * var rimraf = require('rimraf')
+ *
+ * function fixture () {
+ *   try {
+ *     rimraf.sync(5555)
+ *   } catch (err) {
+ *     var callsiteLine = findCallsite(err)
+ *     console.log(callsiteLine)
+ *     // => 'at fixture (/home/charlike/apps/find-callsite/example.js:6:12)'
+ *   }
+ * }
+ *
+ * fixture()
+ * ```
+ *
+ * @param  {Error|Object|String} `error` plain or Error object with stack property, or string stack
+ * @return {String} single callsite from whole stack trace, e.g. `at foo (/home/bar/baz.js:33:4)`
+ * @api public
+ */
+
 module.exports = function findCallsite (error) {
   if (isString(error)) {
     error = { stack: error }
