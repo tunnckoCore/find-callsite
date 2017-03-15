@@ -7,6 +7,7 @@
 
 'use strict'
 
+var path = require('path')
 var extend = require('extend-shallow')
 var relativePaths = require('clean-stacktrace-relative-paths')
 
@@ -62,14 +63,14 @@ module.exports = function findCallsite (error, opts) {
   if (!isString(error.stack)) {
     throw new TypeError('find-callsite: expect `error.stack` to be non empty string')
   }
-  opts = extend({ cwd: process.cwd() }, opts)
+  opts = extend({ cwd: process.cwd(), relativePaths: false }, opts)
 
   // filepath of very parent
   var filepath = cameFrom(module.parent)
 
-  // allow making path relative
+  // allow making path relative + ensurance
   filepath = opts.relativePaths
-    ? relativePaths(opts.cwd)(filepath)
+    ? path.relative(opts.cwd, filepath)
     : filepath
 
   // get the index where it's found in stack

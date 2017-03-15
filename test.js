@@ -11,6 +11,7 @@
 
 var test = require('mukla')
 var isCI = require('is-ci')
+var cleanStack = require('clean-stacktrace')
 var findCallsite = require('./index')
 
 var assertions = require('./fixtures/main/assertions')
@@ -25,7 +26,7 @@ function factory (fn, str) {
     var callsiteLine = findCallsite(str ? err.stack : err)
     test.strictEqual(/at/.test(callsiteLine), true)
     test.strictEqual(/factory/.test(callsiteLine), true)
-    test.strictEqual(/test\.js:23:5/.test(callsiteLine), true)
+    test.strictEqual(/test\.js:24:5/.test(callsiteLine), true)
     test.strictEqual(/fixtures/.test(callsiteLine), false)
   }
 }
@@ -100,5 +101,29 @@ test('allow making path relative through opts.cwd and opts.relativePaths', funct
   } else {
     test.strictEqual(callsite, 'at Fucntion.zazz (test.js:77:14)')
   }
+  done()
+})
+
+test('should work correctly if stack has filepath in first and last lines', function ensure (done) {
+  var err = new Error('ensure correct')
+  var stack = cleanStack(err.stack)
+  var callsite = findCallsite(stack, {
+    relativePaths: true
+  })
+
+  // console.log(stack) // notice first and last in stack, first is correct
+  // Error: ensure correct
+  //   at Function.ensure (/home/charlike/apps/find-callsite/test.js:107:13)
+  //   at Function.tryCatch (/home/charlike/apps/find-callsite/node_modules/try-catch-callback/index.js:73:14)
+  //   at Function.tryCatchCallback (/home/charlike/apps/find-callsite/node_modules/try-catch-callback/index.js:56:21)
+  //   at Function.tryCatch (/home/charlike/apps/find-callsite/node_modules/try-catch-core/index.js:82:26)
+  //   at Function.tryCatchCore (/home/charlike/apps/find-callsite/node_modules/try-catch-core/index.js:64:12)
+  //   at Function.alwaysDone (/home/charlike/apps/find-callsite/node_modules/always-done/index.js:61:24)
+  //   at mukla (/home/charlike/apps/find-callsite/node_modules/mukla/index.js:55:9)
+  //   at Object.<anonymous> (/home/charlike/apps/find-callsite/test.js:106:1)
+
+  // ensure that it is not Object.<anonymous>
+  // which is the last callsite in stack
+  test.strictEqual(/at Function.ensure/.test(callsite), true)
   done()
 })

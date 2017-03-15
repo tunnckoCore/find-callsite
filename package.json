@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "assert-kindof": "^2.0.1",
+    "clean-stacktrace": "^1.1.0",
     "commitizen": "~2.7.0",
     "cz-conventional-changelog": "1.1.5",
     "is-ci": "^1.0.10",
