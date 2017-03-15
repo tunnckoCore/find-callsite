@@ -10,6 +10,7 @@
 'use strict'
 
 var test = require('mukla')
+var isCI = require('is-ci')
 var findCallsite = require('./index')
 
 var assertions = require('./fixtures/main/assertions')
@@ -24,7 +25,7 @@ function factory (fn, str) {
     var callsiteLine = findCallsite(str ? err.stack : err)
     test.strictEqual(/at/.test(callsiteLine), true)
     test.strictEqual(/factory/.test(callsiteLine), true)
-    test.strictEqual(/test\.js:22:5/.test(callsiteLine), true)
+    test.strictEqual(/test\.js:23:5/.test(callsiteLine), true)
     test.strictEqual(/fixtures/.test(callsiteLine), false)
   }
 }
@@ -92,6 +93,12 @@ test('allow making path relative through opts.cwd and opts.relativePaths', funct
     relativePaths: true
   })
 
-  test.strictEqual(callsite, 'at Fucntion.zazz (test.js:77:14)')
+  if (isCI) {
+    test.strictEqual(/at Fucntion\.zazz/.test(callsite), true)
+    test.strictEqual(/\.\./.test(callsite), true)
+    test.strictEqual(/test\.js:77:14/.test(callsite), true)
+  } else {
+    test.strictEqual(callsite, 'at Fucntion.zazz (test.js:77:14)')
+  }
   done()
 })
