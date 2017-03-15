@@ -89,17 +89,17 @@ test('should work for very short stack trace', function fooQuxieTest (done) {
 test('allow making path relative through opts.cwd and opts.relativePaths', function (done) {
   var callsite = findCallsite([
     'Error: testing relative paths',
-    '    at Fucntion.zazz (/home/charlike/apps/find-callsite/test.js:77:14)'
+    '    at Function.zazz (/home/charlike/apps/find-callsite/test.js:77:14)'
   ].join('\n'), {
     relativePaths: true
   })
 
   if (isCI) {
-    test.strictEqual(/at Fucntion\.zazz/.test(callsite), true)
+    test.strictEqual(/at Function\.zazz/.test(callsite), true)
     test.strictEqual(/\.\./.test(callsite), true)
     test.strictEqual(/test\.js:77:14/.test(callsite), true)
   } else {
-    test.strictEqual(callsite, 'at Fucntion.zazz (test.js:77:14)')
+    test.strictEqual(callsite, 'at Function.zazz (test.js:77:14)')
   }
   done()
 })
