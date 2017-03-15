@@ -7,6 +7,9 @@
 
 'use strict'
 
+var extend = require('extend-shallow')
+var relativePaths = require('clean-stacktrace-relative-paths')
+
 /**
  * > Find correct callsite where error is started. All that stuff
  * is because you not always need the first line of the stack
@@ -29,6 +32,12 @@
  *     var callsiteLine = findCallsite(err)
  *     console.log(callsiteLine)
  *     // => 'at fixture (/home/charlike/apps/find-callsite/example.js:6:12)'
+ *
+ *     var relativeCallsiteLine = findCallsite(err, {
+ *       relativePaths: true
+ *     })
+ *     console.log(relativeCallsiteLine)
+ *     // => 'at fixture (example.js:6:12)'
  *   }
  * }
  *
@@ -36,11 +45,14 @@
  * ```
  *
  * @param  {Error|Object|String} `error` plain or Error object with stack property, or string stack
+ * @param  {Object} `opts` optional options object
+ * @param  {String} `opts.cwd` give current working directory, default to `process.cwd()`
+ * @param  {Boolean} `opts.relativePaths` make path relative to `opts.cwd`, default `false`
  * @return {String} single callsite from whole stack trace, e.g. `at foo (/home/bar/baz.js:33:4)`
  * @api public
  */
 
-module.exports = function findCallsite (error) {
+module.exports = function findCallsite (error, opts) {
   if (isString(error)) {
     error = { stack: error }
   }
@@ -50,9 +62,15 @@ module.exports = function findCallsite (error) {
   if (!isString(error.stack)) {
     throw new TypeError('find-callsite: expect `error.stack` to be non empty string')
   }
+  opts = extend({ cwd: process.cwd() }, opts)
 
   // filepath of very parent
   var filepath = cameFrom(module.parent)
+
+  // allow making path relative
+  filepath = opts.relativePaths
+    ? relativePaths(opts.cwd)(filepath)
+    : filepath
 
   // get the index where it's found in stack
   var foundIndex = error.stack.indexOf(String(filepath))
@@ -85,7 +103,9 @@ module.exports = function findCallsite (error) {
 
   // we cut exactly the callsite that we need and we trim it
   var callsiteLine = error.stack.slice(lastNewLine, restFirstNewLine).trim()
-  return callsiteLine
+  return opts.relativePaths
+    ? relativePaths(opts.cwd)(callsiteLine)
+    : callsiteLine
 }
 
 function isObject (val) {

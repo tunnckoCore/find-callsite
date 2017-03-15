@@ -46,7 +46,7 @@ const findCallsite = require('find-callsite')
 
 ## API
 
-### [findCallsite](index.js#L43)
+### [findCallsite](index.js#L55)
 > Find correct callsite where error is started. All that stuff is because you not always need the first line of the stack to understand where and what happened.
 
 In below example we use `rimraf.sync` to throw some error. That's
@@ -56,6 +56,9 @@ not where it throws. In that case it is on line 6, column 12.
 **Params**
 
 * `error` **{Error|Object|String}**: plain or Error object with stack property, or string stack    
+* `opts` **{Object}**: optional options object    
+* `opts.cwd` **{String}**: give current working directory, default to `process.cwd()`    
+* `opts.relativePaths` **{Boolean}**: make path relative to `opts.cwd`, default `false`    
 * `returns` **{String}**: single callsite from whole stack trace, e.g. `at foo (/home/bar/baz.js:33:4)`  
 
 **Example**
@@ -71,6 +74,12 @@ function fixture () {
     var callsiteLine = findCallsite(err)
     console.log(callsiteLine)
     // => 'at fixture (/home/charlike/apps/find-callsite/example.js:6:12)'
+
+    var relativeCallsiteLine = findCallsite(err, {
+      relativePaths: true
+    })
+    console.log(relativeCallsiteLine)
+    // => 'at fixture (example.js:6:12)'
   }
 }
 

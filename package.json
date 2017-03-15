@@ -19,7 +19,10 @@
     "git:cz": "git-cz",
     "commit": "npm-run-all -s test git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "clean-stacktrace-relative-paths": "^1.0.1",
+    "extend-shallow": "^2.0.1"
+  },
   "devDependencies": {
     "assert-kindof": "^2.0.1",
     "commitizen": "~2.7.0",

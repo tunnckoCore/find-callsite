@@ -83,3 +83,15 @@ test('should work for very short stack trace', function fooQuxieTest (done) {
   test.strictEqual(/test\.js:16:20/.test(callsite), true)
   done()
 })
+
+test('allow making path relative through opts.cwd and opts.relativePaths', function (done) {
+  var callsite = findCallsite([
+    'Error: testing relative paths',
+    '    at Fucntion.zazz (/home/charlike/apps/find-callsite/test.js:77:14)'
+  ].join('\n'), {
+    relativePaths: true
+  })
+
+  test.strictEqual(callsite, 'at Fucntion.zazz (test.js:77:14)')
+  done()
+})
