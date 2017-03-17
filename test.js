@@ -113,17 +113,17 @@ test('should work correctly if stack has filepath in first and last lines', func
 
   // console.log(stack) // notice first and last in stack, first is correct
   // Error: ensure correct
-  //   at Function.ensure (/home/charlike/apps/find-callsite/test.js:107:13)
-  //   at Function.tryCatch (/home/charlike/apps/find-callsite/node_modules/try-catch-callback/index.js:73:14)
-  //   at Function.tryCatchCallback (/home/charlike/apps/find-callsite/node_modules/try-catch-callback/index.js:56:21)
-  //   at Function.tryCatch (/home/charlike/apps/find-callsite/node_modules/try-catch-core/index.js:82:26)
-  //   at Function.tryCatchCore (/home/charlike/apps/find-callsite/node_modules/try-catch-core/index.js:64:12)
-  //   at Function.alwaysDone (/home/charlike/apps/find-callsite/node_modules/always-done/index.js:61:24)
+  //   at Object.ensure (/home/charlike/apps/find-callsite/test.js:107:13)
+  //   at Object.tryCatch (/home/charlike/apps/find-callsite/node_modules/try-catch-callback/index.js:73:14)
+  //   at Object.tryCatchCallback (/home/charlike/apps/find-callsite/node_modules/try-catch-callback/index.js:56:21)
+  //   at Object.tryCatch (/home/charlike/apps/find-callsite/node_modules/try-catch-core/index.js:82:26)
+  //   at Object.tryCatchCore (/home/charlike/apps/find-callsite/node_modules/try-catch-core/index.js:64:12)
+  //   at Object.alwaysDone (/home/charlike/apps/find-callsite/node_modules/always-done/index.js:61:24)
   //   at mukla (/home/charlike/apps/find-callsite/node_modules/mukla/index.js:55:9)
   //   at Object.<anonymous> (/home/charlike/apps/find-callsite/test.js:106:1)
 
   // ensure that it is not Object.<anonymous>
   // which is the last callsite in stack
-  test.strictEqual(/at Function.ensure/.test(callsite), true)
+  test.strictEqual(/at Object.ensure/.test(callsite), true)
   done()
 })

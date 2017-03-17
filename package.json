@@ -20,7 +20,7 @@
     "commit": "npm-run-all -s test git"
   },
   "dependencies": {
-    "clean-stacktrace-relative-paths": "^1.0.1",
+    "clean-stacktrace-relative-paths": "^1.0.3",
     "extend-shallow": "^2.0.1"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "commitizen": "~2.7.0",
     "cz-conventional-changelog": "1.1.5",
     "is-ci": "^1.0.10",
-    "mukla": "^0.4.8",
+    "mukla": "^0.4.9",
     "npm-run-all": "~3.1.2",
     "nyc": "^10.1.2",
     "pre-commit": "^1.2.2",
